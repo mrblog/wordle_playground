@@ -1,6 +1,6 @@
 
-if [ $# -ne 1 ] ; then
-  echo "usage: guess match (e.g. date)" 1>&2
+if [ $# -lt 1 ] ; then
+  echo "usage: guess match (e.g. date) [ starting-word ]" 1>&2
   exit 1
 fi
 MATCH="$1"
@@ -10,9 +10,13 @@ tail "+$n"  ordered_answers.txt | head -1
 today_word=`head -1 today.txt`
 today_num=`tail +"$n"  ordered_answers.txt | head -1 | awk '{print $5}'`
 echo "today_word: $today_word"
-start_index=`od -An -N1 -i /dev/random`
-start_index=`echo $start_index 25 | awk '{ slope = ($2 - 1) / 255.;  print sprintf("%.f", 1 + slope * $1) }'`
-start_word=`grep '^Guess:' best_first.txt | sort -n --key=4,8 | tail +$start_index | head -1 | awk '{print $2}'`
+if [ $# -gt 1 ] ; then
+  start_word="$2"
+else
+  start_index=`od -An -N1 -i /dev/random`
+  start_index=`echo $start_index 25 | awk '{ slope = ($2 - 1) / 255.;  print sprintf("%.f", 1 + slope * $1) }'`
+  start_word=`grep '^Guess:' best_first.txt | sort -n --key=4,8 | tail +$start_index | head -1 | awk '{print $2}'`
+fi
 echo "start_word: $start_word"
 guess="$start_word"
 cp today.txt wordset.txt

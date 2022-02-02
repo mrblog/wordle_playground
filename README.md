@@ -134,4 +134,40 @@ equivalently scored guesses, it simply picks one at random.
 
 These random aspects of the guesser gives us the luck factor.
 
+## Try different starting words
 
+You can force the guesser to use a specific starting word by providing one, as shown below:
+
+```shell
+$ sh guess.sh "Feb 02 2022" great
+```
+Output:
+
+```shell
+Wordle 228 6/6
+
+GREAT
+⬛⬛⬛⬛🟩
+Possibilities: 41
+SCOUT
+🟨⬛🟨⬛🟩
+Possibilities: 5
+FOIST
+⬛🟩🟩🟩🟩
+Possibilities: 3
+JOIST
+⬛🟩🟩🟩🟩
+Possibilities: 2
+HOIST
+⬛🟩🟩🟩🟩
+Possibilities: 1
+MOIST
+🟩🟩🟩🟩🟩
+Possibilities: 1
+```
+
+Be warned that if your starting word is weak, it could take a *long* time for the
+guesser to run, or at least to pick the second guess, possibly several minutes 
+depending on how terrible the supplied starting word is. It will generally recover
+pretty well after the first guess and probably still solve the puzzle because it
+will pick a much better second guess using the algorithm described above.
