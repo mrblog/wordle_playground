@@ -47,16 +47,24 @@ STUDY
 🟨🟨⬛⬛⬛
 ```
 
-Show the Wordle match for a given guess and answer and generate a ranked next-guess list:
+Show the Wordle match for a given guess and answer and generate a list of possible
+next-guess words:
 
 ```shell
-$ ./wordle_guess study moist answers.txt next_guesses.txt
+$ ./wordle_guess study moist answers.txt possibilities.txt
 ```
 
 Output is the same as above, but the code in this case reads the `answers.txt` input for 
-possible 5-letter word answers and generates an output of ranked possible guesses,
-in this case to the specified file `next_guesses.txt`. The ranked guesses are output
-in a form like the following
+possible 5-letter word answers and generates an output of possible next-guess words, one per line,
+in this case to the specified file `possibilities.txt`. 
+
+Generate a ranked set of possible guesses given an input list of guesses / answers:
+
+```shell
+$ ./wordle_guess possibilities.txt
+```
+
+The ranked guesses are output in a form like the following
 
 ```shell
 Answers: 5
@@ -66,12 +74,6 @@ Guess: ghost Averge: 2.20 low: 1 high: 3
 Guess: hoist Averge: 2.20 low: 1 high: 3
 Guess: joist Averge: 2.20 low: 1 high: 3
 Guess: foist Averge: 2.20 low: 1 high: 3
-```
-
-Generate a ranked set of possible guesses given an input answer-set:
-
-```shell
-$ ./wordle_guess answers.txt
 ```
 
 Generate a ranked set of starting words. This will take several hours to run.
