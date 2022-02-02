@@ -40,7 +40,7 @@ while [ true ] ; do
   fi
   echo  ./wordle_guess $guess_file 1>&2
   ./wordle_guess $guess_file 2> $avg_file
-  grep '^Guess:' $avg_file | sort -n --key=4,8 | awk 'BEGIN { lo = 999 } { if ($4 <= lo) { print } }' > next_guesses.txt
+  grep '^Guess:' $avg_file | sort -n --key=4,8 | awk 'BEGIN { lo = 999 } { if ($4 <= lo) { lo = $4; print } }' > next_guesses.txt
   n=$(cat next_guesses.txt |wc -l)
   if [ $n -gt 1 ] ; then
     guess_index=`od -An -N1 -i /dev/random`
