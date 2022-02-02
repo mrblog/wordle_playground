@@ -5,10 +5,12 @@ Play around with the Wordle leaked word lists and guessing algorithms.
 **BEWARE:** *Spoiler is here because all the Wordle answers are in this repo.
 Don't look if you don't want to know.*
 
+*For research purposes only.*
+
 ## Overview
 
 This is not meant for cheating. That's no fun. 
-The fun comes in comparing your Wordle solution to the algorithm just to compare
+The fun comes in comparing your Wordle solution to the algorithm, to compare
 and contrast your approach vs. the simple math guesser.
 
 The tool can also be useful for analyzing your guesses. I like to see how rapidly
@@ -19,7 +21,9 @@ The basic *Go* app has two main functions, triggered by command-line args:
 1. Generate a list of guess quality scores from a given input word list of possible answers (and possibly a separate guess list)
 2. Check a guess against a target (answer) word and optionally produce an output set of possible scored next guesses
 
-The code is nothing too pretty, but it gets the job done and is hopefully not too
+The code is nothing too pretty. It is not forgiving. 
+It does little bounds checking and will crash with bad inputs.
+But it gets the job done and is hopefully not too
 difficult to work with and understand what it's doing.
 
 ## Build the code
