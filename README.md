@@ -5,6 +5,10 @@ Play around with the Wordle leaked word lists and guessing algorithms.
 **BEWARE:** *Spoiler is here because all the Wordle answers are in this repo.
 Don't look if you don't want to know.*
 
+From Josh Wardle, the Wordle author:
+
+> "people are saying it’s like if you’re doing the puzzle section in the newspaper, you can turn the puzzle upside down and read the answers. It’s more about like, who are you cheating if you’re doing that?"
+
 *For research purposes only.*
 
 ## Overview

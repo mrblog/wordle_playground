@@ -1,0 +1,9 @@
+_site/
+
+*.txt
+
+!accepted_guesses.txt
+!answers.txt
+!best_first.txt
+!guesses.txt
+!ordered_answers.txt
