@@ -60,7 +60,9 @@ func findMatches(result GuessResult, answers []string) []string {
 		for i := 0; i < 5; i++ {
 			if result.Matches[i] {
 				matches += string(result.GuessRune[i])
-				mustContainLetters = append(mustContainLetters, result.GuessRune[i])
+				if !strings.Contains(string(mustContainLetters), string(result.GuessRune[i])) {
+					mustContainLetters = append(mustContainLetters, result.GuessRune[i])
+				}
 				hasMatches = true
 			} else {
 				matches += "."
@@ -74,7 +76,9 @@ func findMatches(result GuessResult, answers []string) []string {
 						}
 					}
 					mismatchRegexList = append(mismatchRegexList, mismatchRegex)
-					mustContainLetters = append(mustContainLetters, result.GuessRune[i])
+					if !strings.Contains(string(mustContainLetters), string(result.GuessRune[i])) {
+						mustContainLetters = append(mustContainLetters, result.GuessRune[i])
+					}
 					hasMismatches = true
 				} else {
 					excluded += string(result.GuessRune[i])
@@ -153,17 +157,30 @@ func findMatches(result GuessResult, answers []string) []string {
 	return matchedWords
 }
 
+func removeLetter(letters []rune, letter rune)  []rune {
+	for i,l := range letters {
+		if l == letter {
+			letters[i] = letters[len(letters)-1]
+			return append(letters[:i], letters[i+1:]...)
+		}
+	}
+	return letters
+}
+
 func displayResult(result GuessResult) {
 	var codes string
 	if result.IsMatch {
 		codes = "\U0001F7E9\U0001F7E9\U0001F7E9\U0001F7E9\U0001F7E9"
 	} else {
 		codes = ""
+		availableLetters := result.TargetRune
 		for i := 0; i < 5; i++ {
 			if result.Matches[i] {
 				codes += "\U0001F7E9"
-			} else if result.MisMatches[i] {
+				availableLetters = removeLetter(availableLetters, result.GuessRune[i])
+			} else if result.MisMatches[i] && strings.Contains(string(availableLetters), string(result.GuessRune[i])) {
 				codes += "\U0001F7E8"
+				availableLetters = removeLetter(availableLetters, result.GuessRune[i])
 			} else {
 				codes += "⬛"
 			}
