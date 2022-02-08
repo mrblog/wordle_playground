@@ -176,8 +176,12 @@ func displayResult(result GuessResult) {
 		availableLetters := result.TargetRune
 		for i := 0; i < 5; i++ {
 			if result.Matches[i] {
-				codes += "\U0001F7E9"
 				availableLetters = removeLetter(availableLetters, result.GuessRune[i])
+			}
+		}
+		for i := 0; i < 5; i++ {
+			if result.Matches[i] {
+				codes += "\U0001F7E9"
 			} else if result.MisMatches[i] && strings.Contains(string(availableLetters), string(result.GuessRune[i])) {
 				codes += "\U0001F7E8"
 				availableLetters = removeLetter(availableLetters, result.GuessRune[i])
