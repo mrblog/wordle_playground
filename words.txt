@@ -18,6 +18,7 @@ actor
 acute
 adage
 adapt
+added
 adept
 admin
 admit
@@ -26,6 +27,7 @@ adopt
 adore
 adorn
 adult
+aegis
 affix
 afire
 afoot
@@ -47,6 +49,7 @@ alarm
 album
 alert
 algae
+alias
 alibi
 alien
 align
@@ -103,6 +106,7 @@ ardor
 arena
 argue
 arise
+armed
 armor
 aroma
 arose
@@ -114,8 +118,10 @@ ascot
 ashen
 aside
 askew
+aspen
 assay
 asset
+atlas
 atoll
 atone
 attic
@@ -123,6 +129,7 @@ audio
 audit
 augur
 aunty
+aural
 avail
 avert
 avian
@@ -174,6 +181,7 @@ begat
 beget
 begin
 begun
+beige
 being
 belch
 belie
@@ -192,6 +200,7 @@ bible
 bicep
 biddy
 bigot
+biker
 bilge
 billy
 binge
@@ -236,6 +245,7 @@ blush
 board
 boast
 bobby
+bogus
 boney
 bongo
 bonus
@@ -246,6 +256,7 @@ booty
 booze
 boozy
 borax
+bored
 borne
 bosom
 bossy
@@ -320,6 +331,7 @@ cache
 cacti
 caddy
 cadet
+cadre
 cagey
 cairn
 camel
@@ -332,8 +344,8 @@ canon
 caper
 caput
 carat
+carer
 cargo
-carol
 carry
 carve
 caste
@@ -364,15 +376,18 @@ cheat
 check
 cheek
 cheer
+chemo
 chess
 chest
 chick
 chide
 chief
 child
+chile
 chili
 chill
 chime
+chimp
 china
 chirp
 chock
@@ -427,8 +442,11 @@ coach
 coast
 cobra
 cocoa
+coder
+codex
 colon
 color
+combo
 comet
 comfy
 comic
@@ -440,6 +458,7 @@ copse
 coral
 corer
 corny
+corps
 couch
 cough
 could
@@ -516,6 +535,7 @@ daisy
 dally
 dance
 dandy
+dated
 datum
 daunt
 dealt
@@ -565,6 +585,7 @@ diver
 dizzy
 dodge
 dodgy
+doggy
 dogma
 doing
 dolly
@@ -629,6 +650,7 @@ eaten
 eater
 ebony
 eclat
+edema
 edict
 edify
 eerie
@@ -698,6 +720,7 @@ faint
 fairy
 faith
 false
+famed
 fancy
 fanny
 farce
@@ -708,6 +731,7 @@ fauna
 favor
 feast
 fecal
+feces
 feign
 fella
 felon
@@ -740,6 +764,7 @@ finch
 finer
 first
 fishy
+fixed
 fixer
 fizzy
 fjord
@@ -798,6 +823,7 @@ found
 foyer
 frail
 frame
+franc
 frank
 fraud
 freak
@@ -827,6 +853,7 @@ furor
 furry
 fussy
 fuzzy
+gable
 gaffe
 gaily
 gamer
@@ -847,6 +874,7 @@ geeky
 geese
 genie
 genre
+genus
 ghost
 ghoul
 giant
@@ -934,6 +962,7 @@ guild
 guile
 guilt
 guise
+gulag
 gulch
 gully
 gumbo
@@ -943,6 +972,7 @@ gusto
 gusty
 gypsy
 habit
+haiku
 hairy
 halve
 handy
@@ -1052,6 +1082,7 @@ jerky
 jetty
 jewel
 jiffy
+jihad
 joint
 joist
 joker
@@ -1070,6 +1101,7 @@ karma
 kayak
 kebab
 khaki
+kiddy
 kinky
 kiosk
 kitty
@@ -1085,20 +1117,24 @@ knoll
 known
 koala
 krill
+kudos
 label
 labor
 laden
 ladle
 lager
+laity
 lance
 lanky
 lapel
 lapse
 large
 larva
+laser
 lasso
 latch
 later
+latex
 lathe
 latte
 laugh
@@ -1152,6 +1188,7 @@ loopy
 loose
 lorry
 loser
+lotus
 louse
 lousy
 lover
@@ -1219,6 +1256,7 @@ mercy
 merge
 merit
 merry
+messy
 metal
 meter
 metro
@@ -1237,6 +1275,10 @@ minus
 mirth
 miser
 missy
+misty
+mitre
+mixed
+mixer
 mocha
 modal
 model
@@ -1245,6 +1287,7 @@ mogul
 moist
 molar
 moldy
+mommy
 money
 month
 moody
@@ -1257,6 +1300,7 @@ motel
 motif
 motor
 motto
+mould
 moult
 mound
 mount
@@ -1281,6 +1325,7 @@ musty
 myrrh
 nadir
 naive
+naked
 nanny
 nasal
 nasty
@@ -1294,9 +1339,11 @@ nerve
 never
 newer
 newly
+nexus
 nicer
 niche
 niece
+nifty
 night
 ninja
 ninny
@@ -1317,6 +1364,7 @@ nutty
 nylon
 nymph
 oaken
+oasis
 obese
 occur
 ocean
@@ -1358,10 +1406,13 @@ owner
 oxide
 ozone
 paddy
+padre
 pagan
+pager
 paint
 paler
 palsy
+panda
 panel
 panic
 pansy
@@ -1380,6 +1431,7 @@ patio
 patsy
 patty
 pause
+paved
 payee
 payer
 peace
@@ -1387,8 +1439,10 @@ peach
 pearl
 pecan
 pedal
+peeve
 penal
 pence
+penis
 penne
 penny
 perch
@@ -1412,6 +1466,7 @@ pinch
 piney
 pinky
 pinto
+pious
 piper
 pique
 pitch
@@ -1439,11 +1494,13 @@ plume
 plump
 plunk
 plush
+poach
 poesy
 point
 poise
 poker
 polar
+polio
 polka
 polyp
 pooch
@@ -1468,6 +1525,7 @@ prime
 primo
 print
 prior
+prise
 prism
 privy
 prize
@@ -1527,6 +1585,7 @@ racer
 radar
 radii
 radio
+radon
 rainy
 raise
 rajah
@@ -1539,6 +1598,7 @@ range
 rapid
 rarer
 raspy
+rater
 ratio
 ratty
 raven
@@ -1557,6 +1617,7 @@ recap
 recur
 recut
 reedy
+reeve
 refer
 refit
 regal
@@ -1566,6 +1627,7 @@ relax
 relay
 relic
 remit
+remix
 renal
 renew
 repay
@@ -1605,6 +1667,8 @@ rocky
 rodeo
 roger
 rogue
+roman
+romeo
 roomy
 roost
 rotor
@@ -1622,6 +1686,7 @@ ruder
 rugby
 ruler
 rumba
+rummy
 rumor
 rupee
 rural
@@ -1636,6 +1701,7 @@ salsa
 salty
 salve
 salvo
+samba
 sandy
 saner
 sappy
@@ -1646,6 +1712,7 @@ sauce
 saucy
 sauna
 saute
+saver
 savor
 savoy
 savvy
@@ -1737,6 +1804,7 @@ shout
 shove
 shown
 showy
+shred
 shrew
 shrub
 shrug
@@ -1753,6 +1821,7 @@ silly
 since
 sinew
 singe
+sinus
 siren
 sissy
 sixth
@@ -1888,6 +1957,7 @@ spurt
 squad
 squat
 squib
+squid
 stack
 staff
 stage
@@ -1943,6 +2013,7 @@ stove
 strap
 straw
 stray
+strew
 strip
 strut
 stuck
@@ -1973,6 +2044,7 @@ swash
 swath
 swear
 sweat
+swede
 sweep
 sweet
 swell
@@ -1981,6 +2053,7 @@ swift
 swill
 swine
 swing
+swipe
 swirl
 swish
 swoon
@@ -2020,6 +2093,7 @@ tease
 teddy
 teeth
 tempo
+tempt
 tenet
 tenor
 tense
@@ -2027,6 +2101,7 @@ tenth
 tepee
 tepid
 terra
+terry
 terse
 testy
 thank
@@ -2039,6 +2114,7 @@ theta
 thick
 thief
 thigh
+thine
 thing
 think
 third
@@ -2062,6 +2138,7 @@ tilde
 timer
 timid
 tipsy
+tired
 titan
 tithe
 title
@@ -2075,6 +2152,7 @@ tonic
 tooth
 topaz
 topic
+torah
 torch
 torso
 torus
@@ -2126,10 +2204,13 @@ tubal
 tuber
 tulip
 tulle
+tummy
 tumor
+tuner
 tunic
 turbo
 tutor
+twain
 twang
 tweak
 tweed
@@ -2299,11 +2380,13 @@ wrote
 wrung
 wryly
 yacht
+yahoo
 yearn
 yeast
 yield
 young
 youth
+yummy
 zebra
 zesty
 zonal

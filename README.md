@@ -11,6 +11,10 @@ From Josh Wardle, the Wordle author:
 
 *For research purposes only.*
 
+**UPDATE** Updated with new NYT answers Feb 15 2022. Original Wordle answers are 
+now in the file `ordered_answers_original.txt`. Likewise, the accepted guesses have been 
+updated to match the new NYT set and the original list is now in the file `accepted_guesses_original.txt` 
+
 ## Overview
 
 This is not meant for cheating. That's no fun. 
@@ -139,6 +143,20 @@ For subsequent guesses, it ranks as described above and if there are multiple
 equivalently scored guesses, it simply picks one at random.
 
 These random aspects of the guesser gives us the luck factor.
+
+### Best starting words
+
+The best starting words as determined by the above algorithm from the set of allowed
+words can be found as follows:
+
+```shell
+$ grep Guess: best_first.txt | sort -n --key=4,8  | head -25
+```
+
+Here are some top starting words, based on this algorithm:
+
+ROATE RAISE RAILE SOARE ARISE IRATE ORATE ARIEL AROSE RAINE ARTEL
+TALER RATEL AESIR ARLES
 
 ## Try different starting words
 

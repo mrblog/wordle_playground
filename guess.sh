@@ -6,7 +6,6 @@ fi
 MATCH="$1"
 n=`cat -n ordered_answers.txt | grep -i "$MATCH" | awk '{print $1}'`
 tail "+$n"  ordered_answers.txt | awk '{if (length($NF) == 5) print tolower($NF) }' > today.txt
-tail "+$n"  ordered_answers.txt | head -1
 today_word=`head -1 today.txt`
 today_num=`tail +"$n"  ordered_answers.txt | head -1 | awk '{print $5}'`
 echo "today_word: $today_word"
@@ -19,7 +18,10 @@ else
 fi
 echo "start_word: $start_word"
 guess="$start_word"
-cp today.txt wordset.txt
+## remove words that we have already guessed (small cheat)
+np=`expr $n - 1`
+head "-$np" ordered_answers.txt | awk '{if (length($NF) == 5) print tolower($NF) }' | sort > previous.txt
+comm -13 previous.txt words.txt > wordset.txt
 echo > today_guesses.txt
 guess_num=1
 while [ true ] ; do

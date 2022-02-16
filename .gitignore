@@ -3,7 +3,10 @@ _site/
 *.txt
 
 !accepted_guesses.txt
+!accepted_guesses_original.txt
 !answers.txt
 !best_first.txt
 !guesses.txt
 !ordered_answers.txt
+!ordered_answers_original.txt
+!words.txt
