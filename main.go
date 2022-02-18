@@ -211,7 +211,7 @@ func readLines(path string) ([]string, error) {
 func main() {
 
 	var answers []string
-	var acceptedGuesses []string
+	var vocabGuesses []string
 	if len(os.Args) > 2 {
 		guessWord := os.Args[1]
 		target := os.Args[2]
@@ -246,13 +246,13 @@ func main() {
 
 	if len(os.Args) > 1 {
 		answers, _ = readLines(os.Args[1])
-		acceptedGuesses = answers
+		vocabGuesses = answers
 	} else {
 		answers, _ = readLines("answers.txt")
-		acceptedGuesses, _ = readLines("guesses.txt")
+		vocabGuesses, _ = readLines("words.txt")
 	}
 	fmt.Fprintf(os.Stderr, "Answers: %d\n", len(answers))
-	fmt.Fprintf(os.Stderr, "Accepted Guesses: %d\n", len(acceptedGuesses))
+	fmt.Fprintf(os.Stderr, "Vocabulary: %d\n", len(vocabGuesses))
 
 	/*result, err := guess("coate", "those")
 	if err == nil {
@@ -265,26 +265,30 @@ func main() {
 	}*/
 
 
-	for _, guessWord := range acceptedGuesses {
+	for _, guessWord := range vocabGuesses {
 		total := 0
-		high := 1
-		low := len(answers)
+		high := 0
+		low := len(answers)+1
+		lowWord := guessWord
+		highWord := guessWord
 		for _, target := range answers {
 			result, err := guess(guessWord, target)
 			if err == nil {
-				matches := findMatches(result, answers)
+				matches := findMatches(result, vocabGuesses)
 				n := len(matches)
 				total += n
 				if n < low {
 					low = n
+					lowWord = target
 				}
 				if n > high {
 					high = n
+					highWord = target
 				}
 			}
 		}
 		avg := float32(total) / float32(len(answers))
-		fmt.Fprintf(os.Stderr, "Guess: %s Averge: %.2f low: %d high: %d\n", guessWord, avg, low, high)
+		fmt.Fprintf(os.Stderr, "Guess: %s Averge: %.2f low: %d high: %d (%s/%s)\n", guessWord, avg, low, high, lowWord, highWord)
 	}
 
 	/*

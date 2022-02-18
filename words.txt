@@ -346,6 +346,7 @@ caput
 carat
 carer
 cargo
+carol
 carry
 carve
 caste
