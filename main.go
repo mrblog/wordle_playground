@@ -265,21 +265,21 @@ func main() {
 		}
 		for i, c := range clueRune {
 			// not present
-			fmt.Fprintf(os.Stderr, " test excluded: clue[%d]: 0x%x\n", i, c)
-			if c != 0x1f7e9 && c != 0x1f7e8 && c != 0x67 && c != 0x79 {
+			//fmt.Fprintf(os.Stderr, " test excluded: clue[%d]: 0x%x\n", i, c)
+			/*if c != 0x1f7e9 && c != 0x1f7e8 && c != 0x67 && c != 0x79 {
 				fmt.Fprintf(os.Stderr, "possible excluded: %s\n", string(guessRune[i]))
-			}
+			}*/
 			if c != 0x1f7e9 && c != 0x1f7e8 && c != 0x67 && c != 0x79 &&
 				!strings.Contains(string(mustContainLetters), string(guessRune[i])) &&
 				!strings.Contains(excluded, string(guessRune[i])) {
 				excluded += string(guessRune[i])
 			}
 		}
-		fmt.Fprintf(os.Stderr, "excluded: %s mustInclude: %s matches: %s\n",
-			excluded, string(mustContainLetters), matches)
+		/*fmt.Fprintf(os.Stderr, "excluded: %s mustInclude: %s matches: %s\n",
+			excluded, string(mustContainLetters), matches)*/
 		answers = matcher(answers, mustContainLetters, excluded,
-		hasMismatches, mismatchRegexList,
-		hasMatches, matches)
+			hasMismatches, mismatchRegexList,
+			hasMatches, matches)
 		vocabGuesses = answers
 	} else {
 		if len(os.Args) > 2 {
