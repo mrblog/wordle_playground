@@ -175,8 +175,9 @@ $ grep Guess: best_first.txt | sort -n --key=4,8  | head -25
 
 Here are some top starting words, based on this algorithm:
 
-ROATE RAISE RAILE SOARE ARISE IRATE ORATE ARIEL AROSE RAINE ARTEL
-TALER RATEL AESIR ARLES
+RAISE ARISE IRATE AROSE SANER ALTER
+LATER STARE SNARE SLATE LASER ALERT
+CRATE TRACE STALE
 
 ## Try different starting words
 
