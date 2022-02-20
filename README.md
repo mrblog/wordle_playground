@@ -24,10 +24,11 @@ and contrast your approach vs. the simple math guesser.
 The tool can also be useful for analyzing your guesses. I like to see how rapidly
 guesses converge on the solution.
 
-The basic *Go* app has two main functions, triggered by command-line args:
+The basic *Go* app has three main functions, triggered by command-line args:
 
 1. Generate a list of guess quality scores from a given input word list of possible answers (and possibly a separate guess list)
 2. Check a guess against a target (answer) word and optionally produce an output set of possible scored next guesses
+3. Helper-mode, given a guess and a clue, and a possible words list, produce a ranked "next guess" list
 
 The code is nothing too pretty. It is not forgiving. 
 It does little bounds checking and will crash with bad inputs.
@@ -91,6 +92,25 @@ $ ./wordle_guess
 ```
 
 The output of this is pre-computed and included in the repo in the `best_first.txt` file.
+
+Generate a ranked list of "next guesses" given a guess, a set of possible answers, and the "clue" returned by Wordle.
+
+```shell
+$ ./wordle_guess taser 🟨⬛🟨⬛⬛ words.txt
+```
+
+The output will be the ranked possible words, as above:
+
+```shell
+Answers: 2393
+Vocabulary: 161
+Guess: angst Averge: 1.93 low: 0 high: 43 (aback/dusty)
+Guess: artsy Averge: 2.42 low: 0 high: 59 (aback/beset)
+Guess: ascot Averge: 1.90 low: 0 high: 32 (aback/baste)
+...
+```
+
+This mode is used by the `next_guess.sh` helper script described below.
 
 ## The guesser script
 
@@ -195,3 +215,49 @@ guesser to run, or at least to pick the second guess, possibly several minutes
 depending on how terrible the supplied starting word is. It will generally recover
 pretty well after the first guess and probably still solve the puzzle because it
 will pick a much better second guess using the algorithm described above.
+
+## The helper mode
+
+This is your cheater mode.
+
+Start with your fist guess, for example:
+
+```shell
+$ sh next_guess.sh taser 🟨⬛🟨⬛⬛ words.txt guess1.txt
+```
+You can either provide the unicode for the "clue" as shown above, or letters
+'g' for GREEN, 'y' for YELLOW, abd 'b' for BLACK, or e.g. ybybb as the equivalent to the above.
+
+The output will be the recommended next-guess and the output
+file (`guess1.txt` in the above example) will contain the list of
+possible answer-words, to use as input for the next guess, e.g.
+
+```shell
+./wordle_guess taser 🟨⬛🟨⬛⬛ words.txt
+Guess: hoist Averge: 3.41 low: 1 high: 6 (ghost/stock)
+      49 guess1.txt possibilities
+```
+
+The guesser suggests the next guess should be "hoist" and that there
+are 49 possible answers.
+
+You provide that to Wordle and use the "clue" returned by Wordle to produce the next guess:
+```shell
+$ sh next_guess.sh hoist bgggg guess1.txt guess2.txt
+./wordle_guess hoist bgggg guess1.txt
+Guess: foist Averge: 1.67 low: 1 high: 2 (foist/joist)
+Guess: joist Averge: 1.67 low: 1 high: 2 (joist/foist)
+Guess: moist Averge: 1.67 low: 1 high: 2 (moist/foist)
+       3 guess2.txt possibilities
+```
+
+In this example you can see there are three possible guesses with the same 
+ranking. In these cases, you simply pick one at random, or using
+your favorite divining method:
+```shell
+$ sh next_guess.sh joist bgggg guess2.txt guess3.txt
+./wordle_guess joist bgggg guess2.txt
+Guess: foist Averge: 1.00 low: 1 high: 1 (foist/foist)
+Guess: moist Averge: 1.00 low: 1 high: 1 (foist/foist)
+       2 guess3.txt possibilities
+```

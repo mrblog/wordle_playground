@@ -46,6 +46,79 @@ func guess(guess string, target string) (result GuessResult, err error) {
 
 }
 
+func matcher(answers []string, mustContainLetters []rune, excluded string,
+	hasMismatches bool, mismatchRegexList []string,
+	hasMatches bool, matches string) []string {
+	var testWords []string
+
+	// word has these letters but maybe in the wrong place,
+	// so exclude words that don't have all these letters
+	if len(mustContainLetters) > 0 {
+		for _, word := range answers {
+			isExcluded := false
+			for _, include := range mustContainLetters {
+				if !strings.Contains(word, string(include)) {
+					isExcluded = true
+					break
+				}
+			}
+			if !isExcluded {
+				testWords = append(testWords, word)
+			}
+		}
+	} else {
+		testWords = answers
+	}
+	// word doesn't have ANY of these letters
+	if len(excluded) > 0 {
+		var newTestWords []string
+		for _, word := range testWords {
+			isExcluded := false
+			for _, exclude := range excluded {
+				if strings.Contains(word, string(exclude)) {
+					isExcluded = true
+					break
+				}
+			}
+			if !isExcluded {
+				newTestWords = append(newTestWords, word)
+			}
+		}
+		testWords = newTestWords
+	}
+
+	// exclude words that have the matched letters in the wrong places
+	if hasMismatches {
+		var newTestWords []string
+		for _, word := range testWords {
+			isExcluded := false
+			for _, mismatchRegex := range mismatchRegexList {
+				match, _ := regexp.MatchString(mismatchRegex, word)
+				if match {
+					isExcluded = true
+					break
+				}
+			}
+			if !isExcluded {
+				newTestWords = append(newTestWords, word)
+			}
+		}
+		testWords = newTestWords
+	}
+	// filter down to words with the matched letters in the correct places
+	if hasMatches {
+		var newTestWords []string
+		for _, word := range testWords {
+			match, _ := regexp.MatchString(matches, word)
+			if match {
+				newTestWords = append(newTestWords, word)
+			}
+		}
+		testWords = newTestWords
+	}
+	return testWords
+}
+
 func findMatches(result GuessResult, answers []string) []string {
 	var matchedWords []string
 	if result.IsMatch {
@@ -80,79 +153,14 @@ func findMatches(result GuessResult, answers []string) []string {
 						mustContainLetters = append(mustContainLetters, result.GuessRune[i])
 					}
 					hasMismatches = true
-				} else {
+				} else if !strings.Contains(excluded, string(result.GuessRune[i])) {
 					excluded += string(result.GuessRune[i])
 				}
 			}
 		}
-		var testWords []string
-
-		// word has these letters but maybe in the wrong place,
-		// so exclude words that don't have all these letters
-		if len(mustContainLetters) > 0 {
-			for _, word := range answers {
-				isExcluded := false
-				for _, include := range mustContainLetters {
-					if !strings.Contains(word, string(include)) {
-						isExcluded = true
-						break
-					}
-				}
-				if !isExcluded {
-					testWords = append(testWords, word)
-				}
-			}
-		} else {
-			testWords = answers
-		}
-		// word doesn't have ANY of these letters
-		if len(excluded) > 0 {
-			var newTestWords []string
-			for _, word := range testWords {
-				isExcluded := false
-				for _, exclude := range excluded {
-					if strings.Contains(word, string(exclude)) {
-						isExcluded = true
-						break
-					}
-				}
-				if !isExcluded {
-					newTestWords = append(newTestWords, word)
-				}
-			}
-			testWords = newTestWords
-		}
-
-		// exclude words that have the matched letters in the wrong places
-		if hasMismatches {
-			var newTestWords []string
-			for _, word := range testWords {
-				isExcluded := false
-				for _, mismatchRegex := range mismatchRegexList {
-					match, _ := regexp.MatchString(mismatchRegex, word)
-					if match {
-						isExcluded = true
-						break
-					}
-				}
-				if !isExcluded {
-					newTestWords = append(newTestWords, word)
-				}
-			}
-			testWords = newTestWords
-		}
-		// filter down to words with the matched letters in the correct places
-		if hasMatches {
-			var newTestWords []string
-			for _, word := range testWords {
-				match, _ := regexp.MatchString(matches, word)
-				if match {
-					newTestWords = append(newTestWords, word)
-				}
-			}
-			testWords = newTestWords
-		}
-		matchedWords = testWords
+		matchedWords = matcher(answers, mustContainLetters, excluded,
+			hasMismatches, mismatchRegexList,
+			hasMatches, matches)
 	}
 	return matchedWords
 }
@@ -212,44 +220,105 @@ func main() {
 
 	var answers []string
 	var vocabGuesses []string
-	if len(os.Args) > 2 {
+
+	// special case helper mode (3 args)
+	if len(os.Args) == 4 {
+		answers, _ = readLines(os.Args[3])
 		guessWord := os.Args[1]
-		target := os.Args[2]
-		result, err := guess(guessWord, target)
-		if err == nil {
-			displayResult(result)
-			if len(os.Args) > 4 {
-				answers, _ = readLines(os.Args[3])
-				f, err := os.Create(os.Args[4])
-				if err != nil {
-					panic(err)
+		guessRune := []rune(guessWord)
+		clue := os.Args[2]
+		clueRune := []rune(clue)
+		matches := "^"
+		var mismatchRegexList []string
+		excluded := ""
+		var mustContainLetters []rune
+		hasMatches := false
+		hasMismatches := false
+		for i, c := range clueRune {
+			//fmt.Fprintf(os.Stderr, "clue[%d]: 0x%x\n", i, c)
+			// match
+			if c == 0x1f7e9 || c == 0x67 {
+				matches += string(guessRune[i])
+				if !strings.Contains(string(mustContainLetters), string(guessRune[i])) {
+					mustContainLetters = append(mustContainLetters, guessRune[i])
 				}
-				defer f.Close()
-				w := bufio.NewWriter(f)
-				matches := findMatches(result, answers)
-				n := len(matches)
-				fmt.Fprintf(os.Stderr, "Possibilities: %d\n", n)
-				for _, match := range matches {
-					_, err := w.WriteString(match+"\n")
+				hasMatches = true
+			} else {
+				matches += "."
+				// mismatch
+				if c == 0x1f7e8 || c == 0x79 {
+					mismatchRegex := "^"
+					for j := 0; j < 5; j++ {
+						if j == i {
+							mismatchRegex += string(guessRune[i])
+						} else {
+							mismatchRegex += "."
+						}
+					}
+					mismatchRegexList = append(mismatchRegexList, mismatchRegex)
+					if !strings.Contains(string(mustContainLetters), string(guessRune[i])) {
+						mustContainLetters = append(mustContainLetters, guessRune[i])
+					}
+					hasMismatches = true
+				}
+			}
+		}
+		for i, c := range clueRune {
+			// not present
+			fmt.Fprintf(os.Stderr, " test excluded: clue[%d]: 0x%x\n", i, c)
+			if c != 0x1f7e9 && c != 0x1f7e8 && c != 0x67 && c != 0x79 {
+				fmt.Fprintf(os.Stderr, "possible excluded: %s\n", string(guessRune[i]))
+			}
+			if c != 0x1f7e9 && c != 0x1f7e8 && c != 0x67 && c != 0x79 &&
+				!strings.Contains(string(mustContainLetters), string(guessRune[i])) &&
+				!strings.Contains(excluded, string(guessRune[i])) {
+				excluded += string(guessRune[i])
+			}
+		}
+		fmt.Fprintf(os.Stderr, "excluded: %s mustInclude: %s matches: %s\n",
+			excluded, string(mustContainLetters), matches)
+		answers = matcher(answers, mustContainLetters, excluded,
+		hasMismatches, mismatchRegexList,
+		hasMatches, matches)
+		vocabGuesses = answers
+	} else {
+		if len(os.Args) > 2 {
+			guessWord := os.Args[1]
+			target := os.Args[2]
+			result, err := guess(guessWord, target)
+			if err == nil {
+				displayResult(result)
+				if len(os.Args) > 4 {
+					answers, _ = readLines(os.Args[3])
+					f, err := os.Create(os.Args[4])
 					if err != nil {
 						panic(err)
 					}
+					defer f.Close()
+					w := bufio.NewWriter(f)
+					matches := findMatches(result, answers)
+					n := len(matches)
+					fmt.Fprintf(os.Stderr, "Possibilities: %d\n", n)
+					for _, match := range matches {
+						_, err := w.WriteString(match + "\n")
+						if err != nil {
+							panic(err)
+						}
+					}
+					w.Flush()
 				}
-				w.Flush()
+			} else {
+				panic(err)
 			}
-		} else {
-			panic(err)
+			os.Exit(0)
 		}
-		os.Exit(0)
-	}
-
-
-	if len(os.Args) > 1 {
-		answers, _ = readLines(os.Args[1])
-		vocabGuesses = answers
-	} else {
-		answers, _ = readLines("answers.txt")
-		vocabGuesses, _ = readLines("words.txt")
+		if len(os.Args) > 1 {
+			answers, _ = readLines(os.Args[1])
+			vocabGuesses = answers
+		} else {
+			answers, _ = readLines("answers.txt")
+			vocabGuesses, _ = readLines("words.txt")
+		}
 	}
 	fmt.Fprintf(os.Stderr, "Answers: %d\n", len(answers))
 	fmt.Fprintf(os.Stderr, "Vocabulary: %d\n", len(vocabGuesses))
