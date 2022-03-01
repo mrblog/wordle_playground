@@ -227,7 +227,7 @@ Start with your fist guess, for example:
 $ sh next_guess.sh taser 🟨⬛🟨⬛⬛ words.txt guess1.txt
 ```
 You can either provide the unicode for the "clue" as shown above, or letters
-'g' for GREEN, 'y' for YELLOW, abd 'b' for BLACK, or e.g. ybybb as the equivalent to the above.
+'g' for GREEN, 'y' for YELLOW, and 'b' for BLACK, or e.g. ybybb as the equivalent to the above.
 
 The output will be the recommended next-guess and the output
 file (`guess1.txt` in the above example) will contain the list of
