@@ -12,7 +12,7 @@ echo ./wordle_guess "$GUESS" "$CLUE" "$INWORDS" 1>&2
 
 ./wordle_guess "$GUESS" "$CLUE" "$INWORDS" 2> result.txt
 
-grep '^Guess:' result.txt | sort -n --key=4,8 | awk 'BEGIN { lo = 999 } { if ($4 <= lo) { lo = $4; print } }' > next_guesses.txt
+grep '^Guess:' result.txt | sort -n --key=4,8 | awk 'BEGIN { lo = 9999; hlo = lo } { if ($4 <= lo && $8 <= hlo) { lo = $4; hlo = $8; print } }' > next_guesses.txt
 cat next_guesses.txt
 
 grep '^Guess:' result.txt | awk '{print $2 }' > "$OUTWORDS"
