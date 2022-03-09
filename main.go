@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"os"
 	"regexp"
@@ -221,12 +222,16 @@ func main() {
 	var answers []string
 	var vocabGuesses []string
 
+	var easyMode = flag.Bool("e", false, "easy mode")
+
+	flag.Parse()
+
 	// special case helper mode (3 args)
-	if len(os.Args) == 4 {
-		answers, _ = readLines(os.Args[3])
-		guessWord := os.Args[1]
+	if flag.NArg() == 3 {
+		answers, _ = readLines(flag.Arg(2))
+		guessWord := flag.Arg(0)
 		guessRune := []rune(guessWord)
-		clue := os.Args[2]
+		clue := flag.Arg(1)
 		clueRune := []rune(clue)
 		matches := "^"
 		var mismatchRegexList []string
@@ -280,17 +285,21 @@ func main() {
 		answers = matcher(answers, mustContainLetters, excluded,
 			hasMismatches, mismatchRegexList,
 			hasMatches, matches)
-		vocabGuesses = answers
+		if *easyMode {
+			vocabGuesses, _ = readLines("words.txt")
+		} else {
+			vocabGuesses = answers
+		}
 	} else {
-		if len(os.Args) > 2 {
-			guessWord := os.Args[1]
-			target := os.Args[2]
+		if flag.NArg() > 1 {
+			guessWord := flag.Arg(0)
+			target := flag.Arg(1)
 			result, err := guess(guessWord, target)
 			if err == nil {
 				displayResult(result)
-				if len(os.Args) > 4 {
-					answers, _ = readLines(os.Args[3])
-					f, err := os.Create(os.Args[4])
+				if flag.NArg() > 3 {
+					answers, _ = readLines(flag.Arg(2))
+					f, err := os.Create(flag.Arg(3))
 					if err != nil {
 						panic(err)
 					}
@@ -312,9 +321,13 @@ func main() {
 			}
 			os.Exit(0)
 		}
-		if len(os.Args) > 1 {
-			answers, _ = readLines(os.Args[1])
-			vocabGuesses = answers
+		if flag.NArg() > 0 {
+			answers, _ = readLines(flag.Arg(0))
+			if *easyMode {
+				vocabGuesses, _ = readLines("guesses.txt")
+			} else {
+				vocabGuesses = answers
+			}
 		} else {
 			answers, _ = readLines("answers.txt")
 			vocabGuesses, _ = readLines("words.txt")
@@ -343,7 +356,7 @@ func main() {
 		for _, target := range answers {
 			result, err := guess(guessWord, target)
 			if err == nil {
-				matches := findMatches(result, vocabGuesses)
+				matches := findMatches(result, answers)
 				n := len(matches)
 				total += n
 				if n < low {

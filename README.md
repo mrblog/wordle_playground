@@ -84,6 +84,14 @@ Guess: hoist Averge: 2.20 low: 1 high: 3
 Guess: joist Averge: 2.20 low: 1 high: 3
 Guess: foist Averge: 2.20 low: 1 high: 3
 ```
+The default plays hard-mode. You can provide the -e option to play easy mode
+using the vocabulary of over 12,000 words that Wordle accepts.
+
+```shell
+./wordle_guess -e possibilities.txt
+```
+
+It will take much longer to generate this list.
 
 Generate a ranked set of starting words. This will take several hours to run.
 
