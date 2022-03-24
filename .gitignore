@@ -6,6 +6,7 @@ _site/
 !accepted_guesses_original.txt
 !answers.txt
 !best_first.txt
+!top25_starting.txt
 !guesses.txt
 !ordered_answers.txt
 !ordered_answers_original.txt

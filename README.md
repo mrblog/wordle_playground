@@ -187,6 +187,14 @@ RAISE ARISE IRATE AROSE SANER ALTER
 LATER STARE SNARE SLATE LASER ALERT
 CRATE TRACE STALE
 
+*UPDATE March 24, 2022:* Doing some first+second analysis 
+(see https://mrblog.org/2022/03/24/more-fun-with-wordle-second-guess-analysis/)
+I've updated the top-15 starting words selection to these:
+
+LEAST DEALT STOLE LEANT TRAIL ROAST
+SLATE SOLAR STONE RAISE STALE STAIR
+TRIAL SONAR IRATE
+
 ## Try different starting words
 
 You can force the guesser to use a specific starting word by providing one, as shown below:
