@@ -14,7 +14,7 @@ if [ $# -gt 1 ] ; then
 else
   start_index=`od -An -N1 -i /dev/random`
   start_index=`echo $start_index 25 | awk '{ slope = ($2 - 1) / 255.;  print sprintf("%.f", 1 + slope * $1) }'`
-  start_word=`top25_starting.txt | tail +$start_index | head -1`
+  start_word=`cat top25_starting.txt | tail +$start_index | head -1`
 fi
 echo "start_word: $start_word"
 guess="$start_word"
