@@ -15,6 +15,8 @@ From Josh Wardle, the Wordle author:
 now in the file `ordered_answers_original.txt`. Likewise, the accepted guesses have been 
 updated to match the new NYT set and the original list is now in the file `accepted_guesses_original.txt` 
 
+**UPDATE** Updated with the new NYT answers as of Mar 30, 2022.
+
 ## Overview
 
 This is not meant for cheating. That's no fun. 
@@ -191,9 +193,9 @@ CRATE TRACE STALE
 (see https://mrblog.org/2022/03/24/more-fun-with-wordle-second-guess-analysis/)
 I've updated the top-15 starting words selection to these:
 
-LEAST DEALT STOLE LEANT TRAIL ROAST
-SLATE SOLAR STONE RAISE STALE STAIR
-TRIAL SONAR IRATE
+SLATE LEAST TRACE REACT CRATE STALE
+STARE LEANT TRAIL TRIAL RAISE ALTER
+LATER SANER CRANE
 
 ## Try different starting words
 
