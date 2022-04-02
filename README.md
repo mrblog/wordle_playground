@@ -103,6 +103,14 @@ $ ./wordle_guess
 
 The output of this is pre-computed and included in the repo in the `best_first.txt` file.
 
+Add the -r option to "reverse" the operation, to generate a "difficulty" value for
+the answer-words, the average words remaining for all possible starting words for that answer
+wrd. Outpusin this case is of the form:
+
+```shell
+Answer: youth Averge: 187.47 low: 1 high: 1324 (amity/vivid)
+```
+
 Generate a ranked list of "next guesses" given a guess, a set of possible answers, and the "clue" returned by Wordle.
 
 ```shell

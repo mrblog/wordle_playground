@@ -223,6 +223,7 @@ func main() {
 	var vocabGuesses []string
 
 	var easyMode = flag.Bool("e", false, "easy mode")
+	var reverseScan = flag.Bool("r", false, "reverse scan")
 
 	flag.Parse()
 
@@ -346,33 +347,59 @@ func main() {
 		}
 	}*/
 
-
-	for _, guessWord := range vocabGuesses {
-		total := 0
-		high := 0
-		low := len(answers)+1
-		lowWord := guessWord
-		highWord := guessWord
+	if *reverseScan {
 		for _, target := range answers {
-			result, err := guess(guessWord, target)
-			if err == nil {
-				matches := findMatches(result, answers)
-				n := len(matches)
-				total += n
-				if n < low {
-					low = n
-					lowWord = target
-				}
-				if n > high {
-					high = n
-					highWord = target
+			total := 0
+			high := 0
+			low := len(vocabGuesses) + 1
+			lowWord := target
+			highWord := target
+			for _, guessWord := range vocabGuesses {
+				result, err := guess(guessWord, target)
+				if err == nil {
+					matches := findMatches(result, answers)
+					n := len(matches)
+					total += n
+					if n < low {
+						low = n
+						lowWord = guessWord
+					}
+					if n > high {
+						high = n
+						highWord = guessWord
+					}
 				}
 			}
+			avg := float32(total) / float32(len(answers))
+			fmt.Fprintf(os.Stderr, "Answer: %s Averge: %.2f low: %d high: %d (%s/%s)\n", target, avg, low, high, lowWord, highWord)
 		}
-		avg := float32(total) / float32(len(answers))
-		fmt.Fprintf(os.Stderr, "Guess: %s Averge: %.2f low: %d high: %d (%s/%s)\n", guessWord, avg, low, high, lowWord, highWord)
+	} else {
+		for _, guessWord := range vocabGuesses {
+			total := 0
+			high := 0
+			low := len(answers) + 1
+			lowWord := guessWord
+			highWord := guessWord
+			for _, target := range answers {
+				result, err := guess(guessWord, target)
+				if err == nil {
+					matches := findMatches(result, answers)
+					n := len(matches)
+					total += n
+					if n < low {
+						low = n
+						lowWord = target
+					}
+					if n > high {
+						high = n
+						highWord = target
+					}
+				}
+			}
+			avg := float32(total) / float32(len(answers))
+			fmt.Fprintf(os.Stderr, "Guess: %s Averge: %.2f low: %d high: %d (%s/%s)\n", guessWord, avg, low, high, lowWord, highWord)
+		}
 	}
-
 	/*
 	result, err := guess("grist", "prism")
 	if err == nil {
