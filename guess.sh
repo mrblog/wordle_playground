@@ -18,10 +18,14 @@ else
 fi
 echo "start_word: $start_word"
 guess="$start_word"
-## remove words that we have already guessed (small cheat)
+## remove recent words that we have already guessed (small cheat)
 np=`expr $n - 1`
-head "-$np" ordered_answers.txt | awk '{if (length($NF) == 5) print tolower($NF) }' | sort > previous.txt
-comm -13 previous.txt words.txt > wordset.txt
+if [ $np -gt 0 ] ; then
+  head "-$np" ordered_answers.txt | awk '{if (length($NF) == 5) print tolower($NF) }' | tail | sort > previous.txt
+  comm -13 previous.txt words.txt > wordset.txt
+else
+  cp words.txt wordset.txt
+fi
 echo > today_guesses.txt
 guess_num=1
 while [ true ] ; do
