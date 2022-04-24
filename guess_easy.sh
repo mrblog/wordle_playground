@@ -46,7 +46,7 @@ while [ true ] ; do
   fi
   echo  ./wordle_guess $guess_file 1>&2
   n=$(cat $guess_file |wc -l)
-  if [ $n -lt 20 -a $n -gt 2 ] ; then
+  if [ $n -lt 200 -a $n -gt 2 ] ; then
     ./wordle_guess -e $guess_file 2> $avg_file
   else
     ./wordle_guess $guess_file 2> $avg_file
