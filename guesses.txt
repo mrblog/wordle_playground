@@ -224,6 +224,7 @@ biome
 birch
 birth
 bison
+biter
 bitty
 black
 blade
@@ -1849,6 +1850,7 @@ riper
 risen
 riser
 risky
+rites
 rival
 river
 rivet
@@ -2037,6 +2039,7 @@ singe
 sinus
 siren
 sissy
+sitar
 sites
 sixth
 sixty
@@ -2359,6 +2362,7 @@ thyme
 tiara
 tibia
 tidal
+tiers
 tiger
 tight
 tilde
@@ -2367,6 +2371,7 @@ times
 timid
 tipsy
 tired
+tires
 titan
 tithe
 title
@@ -2418,6 +2423,7 @@ tribe
 trice
 trick
 tried
+tries
 tripe
 trite
 troll

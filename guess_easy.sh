@@ -47,7 +47,12 @@ while [ true ] ; do
   echo  ./wordle_guess $guess_file 1>&2
   n=$(cat $guess_file |wc -l)
   if [ $n -lt 200 -a $n -gt 2 ] ; then
-    ./wordle_guess -e $guess_file 2> $avg_file
+    ./wordle_guess $guess_file 2> $avg_file
+    grep '^Guess:' $avg_file | sort -n --key=4,8 | awk 'BEGIN { lo = 9999; hlo = lo } { if ($4 <= lo && $8 <= hlo) { lo = $4; hlo = $8; print } }' > next_guesses.txt
+    avg=`head -1 next_guesses.txt | awk '{print $4}'`
+    if [ $avg -gt 1 ] ; then
+      ./wordle_guess -e $guess_file 2> $avg_file
+    fi
   else
     ./wordle_guess $guess_file 2> $avg_file
   fi

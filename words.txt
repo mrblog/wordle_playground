@@ -18,9 +18,7 @@ actor
 acute
 adage
 adapt
-added
 adept
-adieu
 admin
 admit
 adobe
@@ -1433,7 +1431,6 @@ patio
 patsy
 patty
 pause
-paved
 payee
 payer
 peace
