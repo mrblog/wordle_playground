@@ -486,6 +486,7 @@ codec
 coder
 codex
 cohen
+coins
 colby
 colin
 colon
@@ -1371,6 +1372,7 @@ mania
 manic
 manly
 manor
+manse
 maple
 march
 marge

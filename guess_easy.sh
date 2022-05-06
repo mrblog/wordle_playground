@@ -32,6 +32,7 @@ while [ true ] ; do
   echo "guess_num: $guess_num guess: $guess"
   guess_file="guess${guess_num}.txt"
   avg_file="avg${guess_num}.txt"
+  avg_easy_file="avg_easy${guess_num}.txt"
   echo ./wordle_guess "$guess" "$today_word" wordset.txt $guess_file 1>&2
   ./wordle_guess "$guess" "$today_word" wordset.txt $guess_file 2>> today_guesses.txt
   if [ "$guess" == "$today_word" ] ; then
@@ -50,8 +51,13 @@ while [ true ] ; do
     ./wordle_guess $guess_file 2> $avg_file
     grep '^Guess:' $avg_file | sort -n --key=4,8 | awk 'BEGIN { lo = 9999; hlo = lo } { if ($4 <= lo && $8 <= hlo) { lo = $4; hlo = $8; print } }' > next_guesses.txt
     avg=`head -1 next_guesses.txt | awk '{print $4}'`
-    if [ $avg -gt 1 ] ; then
-      ./wordle_guess -e $guess_file 2> $avg_file
+    if (( $(echo "$avg > 1" | bc -l) ))  ; then
+      ./wordle_guess -e $guess_file 2> $avg_easy_file
+      grep '^Guess:' $avg_easy_file | sort -n --key=4,8 | awk 'BEGIN { lo = 9999; hlo = lo } { if ($4 <= lo && $8 <= hlo) { lo = $4; hlo = $8; print } }' > next_guesses.txt
+      easy_avg=`head -1 next_guesses.txt | awk '{print $4}'`
+      if (( $(echo "$easy_avg < $avg" | bc -l) )) ; then
+        cp $avg_easy_file $avg_file
+      fi
     fi
   else
     ./wordle_guess $guess_file 2> $avg_file
