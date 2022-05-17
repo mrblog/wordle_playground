@@ -56,6 +56,7 @@ while [ true ] ; do
       grep '^Guess:' $avg_easy_file | sort -n --key=4,8 | awk 'BEGIN { lo = 9999; hlo = lo } { if ($4 <= lo && $8 <= hlo) { lo = $4; hlo = $8; print } }' > next_guesses.txt
       easy_avg=`head -1 next_guesses.txt | awk '{print $4}'`
       if (( $(echo "$easy_avg < $avg" | bc -l) )) ; then
+        echo "using easy-mode guess: $easy_avg < $avg" 1>&2
         cp $avg_easy_file $avg_file
       fi
     fi

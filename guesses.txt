@@ -430,6 +430,7 @@ chirp
 chock
 choir
 choke
+chops
 chord
 chore
 chose
@@ -1297,6 +1298,7 @@ liken
 lilac
 limbo
 limit
+lined
 linen
 liner
 lines
