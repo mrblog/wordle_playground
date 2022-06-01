@@ -225,6 +225,7 @@ birch
 birth
 bison
 biter
+bitsy
 bitty
 black
 blade
@@ -1512,6 +1513,7 @@ nexus
 nicer
 niche
 nicht
+nicks
 niece
 nifty
 niger
